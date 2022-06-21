@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+
+{% block title %}
+    Realizar tentativa | {{ block.super }}
+{% endblock %}
+{% block container %}
+
+<div>
+    <br>
+    <br>
+    {% if no_record_check > 0 %}
+        <div class="alert alert-success">
+            <strong>Parabens processo concluido </strong>
+        </div>
+    {% else %}
+        <div class="alert alert-warning">
+            <strong> Não há nenhum Card cadastrado. Gentileza cadastre algum card. </strong>
+        </div>
+    {% endif %}
+</div>
+
+<div><a href="{% url 'index' %}"><button class="btn btn-primary">Página Principal</button></a></div>
+
+{% endblock %}

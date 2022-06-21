@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+
+{% block title %}
+    Questões | {{ block.super }}
+{% endblock %}
+{% block container %}
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="page-header">
+            <h1>Perguntas</h1>
+        </div>
+        <ul class="list-group">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Pergunta</th>
+                    <th scope="col">Tema</th>
+                    <th scope="col">Pública</th>
+                  </tr>
+                </thead>
+                <tbody>
+            {% for question in questions %}
+                  <tr>
+                    <td><a href="{% url 'core:update_question' question.id %}">
+                            <li class="list-group-item"> {{ question.description }}</li>
+                        </a>
+                    </td>
+                    <td><li class="list-group-item"> {{ question.theme.description }}</li></td>
+                    <!-- a função do jango  {{VALUE|yesno:"texto se true, texto se falsez texto caso nulo"}} 
+                        pemite configurar respostas padronizadas para valores booleanos -->
+                    <td><li class="list-group-item">  {{ question.public|yesno:"SIM,NO,MAYBE" }}   </li></td>
+                  </tr>
+                
+                
+            {% endfor %}
+                </tbody>
+            </table>
+        </ul>
+
+        <a href="{% url 'core:create_question' %}"> <button class="btn btn-primary" >  Nova Questão </button></a>
+    </div>
+</div>
+{% endblock %}

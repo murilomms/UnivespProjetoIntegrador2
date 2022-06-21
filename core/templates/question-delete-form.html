@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+
+{% block title %}
+    Questões | {{ block.super }}
+{% endblock %}
+{% block container %}
+<div>
+    <form method="post">
+        {% csrf_token %}
+        <h2>Tem certeza que deseja remover esta questão {{ question.description }} ?</h2>
+        <button type="submit" class="btn btn-primary">Confirmar</button>
+    </form>
+</div>
+{% endblock %}

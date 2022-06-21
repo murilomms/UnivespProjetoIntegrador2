@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+
+{% block title %}
+    Realizar tentativa | {{ block.super }}
+{% endblock %}
+{% block container %}
+
+<div>
+    <h1>Foram geradas um conjunto de perguntas com base em sua escolha reponda com honestidade e marque sua opinião sobre a pergunta</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        <!-- {{ form }} -->
+
+        {% for attempt in attempts %}
+        <p>
+          <a class="btn btn-primary element_for_read" data-toggle="collapse" href="#{{attempt.id}}" role="button" aria-expanded="false" aria-controls="{{attempt.id}}">
+            {{attempt.question.description}}
+          </a>
+          <!-- <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Button with data-target
+          </button> -->
+        </p>
+        <div class="form-group">
+          <div class="card collapse" name="{{attempt.id}}" id="{{attempt.id}}">
+            <div class="card card-body">
+              <label class="form-check-label element_for_read" for="answer_{{attempt.id}}">Resposta</label>
+              <div class="alert alert-success element_for_read" role="alert">
+                {{attempt.question.answer}}
+              </div>
+              <div class="card-footer text-muted">
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input" name="got-it-right_{{attempt.id}}" id="got-it-right_{{attempt.id}}">
+                  <label class="form-check-label element_for_read" for="got-it-right_{{attempt.id}}">Acertei</label>
+                </div>
+                
+                <div class="form-group">
+                  <label for="difficult_{{attempt.id}}" class="element_for_read">Qual a difiuldade da pergunta?</label>
+                  <select class="form-control element_for_read" name="difficult_{{attempt.id}}" id="difficult_{{attempt.id}}">
+                    <option value="1">Fácil</option>
+                    <option value="2">Médio</option>
+                    <option value="3">Dificil</option>
+                  </select>
+                </div>
+
+              </div>
+  
+            </div>
+          </div>
+        </div>
+    
+        {% endfor %}
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">Concluir</button>
+        </div>
+        
+    </form>
+
+
+
+</div>
+{% endblock %}
+<script> 
+  $('.carousel').carousel()
+</script>

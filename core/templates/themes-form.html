@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+
+{% block title %}
+    Temas | {{ block.super }}
+{% endblock %}
+{% block container %}
+<div>
+    <h1>Novo/Alterar Tema</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+         <!-- {{ form }} -->
+         {% for field in form %}
+            {% if field.label != 'User' %}
+            <div class="form-group{% if field.errors %} has-error{% endif %}">
+            <label for="{{ field.auto_id }}" class="col-md-3 control-label">{{ field.label }}</label>
+            <div class="col-md-9">
+                {% render_field field class="form-control" %}
+                {% for error in field.errors %}
+                <span class="help-block">{{ error }}</span>
+                {% endfor %}
+            </div>
+            </div>
+            {%else%}
+                {% render_field field class="form-control hidden" %}
+            {% endif %}
+        
+         {% endfor %}
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary ">Salvar</button>
+            {% if theme %}
+            
+                <a href="{% url 'core:delete_theme' theme.id %}"> <button type="button" class="btn deletar" style="background-color:red; color:white"> Deletar </button></a>
+            {% endif %}
+        </div>
+    </form>
+   
+</div>
+{% endblock %}
