@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+
+{% block title %}
+    Criar Tentiva | {{ block.super }}
+{% endblock %}
+{% block container %}
+
+<div>
+    <h1>Configurar tentativa</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        <!-- {{ form }} -->
+        <div class="form-group" >
+            <label class="costumSwitch">
+                <input type="checkbox" id="aceita_publica" name="aceita_publica">
+                <span class="slider round"></span>
+            </label>
+            <label class="control-label" for="aceita_publica"> Deseja usar perguntas da comunidade?</label>
+        </div>
+
+        <div class="form-group" id="div-temas">      
+            <lable class="control-label for="decks">Escolha sua matéria:</lable>
+            <select class="form-control" name="decks" id="decks">
+                <!-- This part is where put the questions-->
+                {% for theme in themes %}
+                    <option value={{theme.id}}> {{theme.description}} </option>
+                {%endfor%}
+            </select>
+        </div> 
+        
+        <div class="form-group hidden" id="div-categoria">      
+            <lable class="control-label for="decks">Escolha a categoria :</lable>
+            <select class="form-control" name="categoria" id="categoria">
+                
+                {% for category in categories %}
+                    <option value={{category.id}}> {{category.description}} </option>
+                {%endfor%}
+            </select>
+        </div> 
+
+        <div class="form-group">
+            <lable class="control-label for="quantidade_perguntas">Escolha a quantidade de perguntas que deseja:</lable>
+            <select class="form-control" name="quantidade_perguntas" id="quantidade_perguntas">
+                    <option value=1> 1 pergunta </option>
+                    <option value=2> 2 pergunta </option>
+                    <option value=3> 3 pergunta </option>
+                    <option value=5> 5 pergunta </option>
+                    <option value=10> 10 pergunta </option>
+            </select>
+        </div>           
+        <!-- {% for field in form %}
+            {% if field.label != 'Usuários'  %}
+                <div class="form-group{% if field.errors %} has-error{% endif %}">
+                <label for="{{ field.auto_id }}" class="col-md-3 control-label">{{ field.label }}</label>
+                    <div class="col-md-9">
+                    
+                            {% render_field field class="form-control" %}
+                        
+                        {% for error in field.errors %}
+                        <span class="help-block">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% else %}
+                {% render_field field class="hidden" %}
+            {% endif %}
+            
+        {% endfor %} -->
+        <div class="form-group">
+            {% if themes %}
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            {% else %}
+                <button type="button" class="btn btn-primary" disabled>Salvar</button>
+            {% endif %}  
+
+        </div>
+        
+    </form>
+
+
+
+</div>
+{% endblock %}

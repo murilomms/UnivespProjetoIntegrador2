@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+
+{% block title %}
+    Questões | {{ block.super }}
+{% endblock %}
+{% block container %}
+
+<div>
+    <h1>Novo/Alterar questão</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        <!-- {{ form }} -->
+
+        {% for field in form %}
+            {% if field.label != 'Usuários'  %}
+                <div class="form-group{% if field.errors %} has-error{% endif %}">
+                <label for="{{ field.auto_id }}" class="col-md-3 control-label">{{ field.label }}</label>
+                    <div class="col-md-9">
+                    
+                            {% render_field field class="form-control" %}
+                        
+                        {% for error in field.errors %}
+                        <span class="help-block">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% else %}
+                {% render_field field class="hidden" %}
+            {% endif %}
+            
+        {% endfor %}
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            {% if question %}
+                <a href="{% url 'core:delete_question' question.id %}"> <button type="button" class="btn deletar" style="background-color:red; color:white">Deletar </button></a>
+            {% endif %}
+        </div>
+        
+    </form>
+
+
+
+</div>
+{% endblock %}

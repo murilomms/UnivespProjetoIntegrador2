@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+
+{% block title %}
+    Temas | {{ block.super }}
+{% endblock %}
+{% block container %}
+<div class="row">
+
+    <div class="col-md-8 col-md-offset-2">
+        <div class="page-header">
+            <h1>Temas</h1>
+        </div>
+        <ul class="list-group">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Tema</th>
+                    <th scope="col">Categoria</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for theme in themes %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'core:update_theme' theme.id %}">
+                                <li class="list-group-item"> {{ theme.description }}</li>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{% url 'core:update_theme' theme.id %}">
+                                <li class="list-group-item"> {{ theme.category.description }}</li>
+                            </a>
+                        </td>
+
+                    </tr>
+                
+                {% endfor %}
+                </tbody>
+            </table>
+        </ul>
+
+         <a href="{% url 'core:create_theme' %}"> <button class="btn btn-primary" > Novo Tema </button></a>
+    </div>
+</div>
+{% endblock %}
